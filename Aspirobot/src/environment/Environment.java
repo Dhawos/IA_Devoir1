@@ -1,4 +1,4 @@
-package environment;
+package ca.uqac.IA.Devoir1.environment;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -34,14 +34,19 @@ public class Environment extends TimerTask {
 
     public Environment() {
         map = new ArrayList<>(3);
-        int i = 0;
-        for (ArrayList<Tile> row : map) {
+        for (int i = 0; i < 3; i++) {
             if(i != 1){
-                row = new ArrayList<>(3);
+                map.add(i,new ArrayList<>(3));
+                for(int j = 0; j < 3; j++){
+                    map.get(i).add(j, new Tile(i,j));
+                }
             }else{
-                row = new ArrayList<>(5);
+                map.add(i,new ArrayList<>(5));
+                for(int j = 0; j < 5; j++){
+                    map.get(i).add(j, new Tile(i,j));
+                }
             }
-            i++;
+
         }
         electricityUsed = 0;
         isGameRunning = false;
@@ -60,5 +65,13 @@ public class Environment extends TimerTask {
     @Override
     public void run(){
         computeNextState();
+    }
+
+    public ArrayList<ArrayList<Tile>> getMap() {
+        return map;
+    }
+
+    public boolean isGameRunning() {
+        return isGameRunning;
     }
 }
