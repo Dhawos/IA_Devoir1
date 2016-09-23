@@ -6,7 +6,6 @@ import ca.uqac.IA.Devoir1.environment.Tile;
 import ca.uqac.IA.Devoir1.view.MainFrame;
 import ca.uqac.IA.Devoir1.view.TilePanel;
 
-import java.util.ArrayList;
 import java.util.Timer;
 
 public class Aspirobot {
@@ -29,8 +28,9 @@ public class Aspirobot {
         MainFrame mainFrame = new MainFrame();
         mainFrame.getControlButton().addMouseListener(controller);
 
-        for (ArrayList<Tile> row : environment.getMap()) {
-            for (Tile tile : row) {
+        for (int i=0;i<environment.getMap().getNbLines();i++) {
+            for (int j=0;j<environment.getMap().getNbTilesInLine(i);j++) {
+                Tile tile = environment.getMap().getTile(i,j);
                 TilePanel tilePanel = mainFrame.getTileMap().stream().filter(t -> t.getXPos() == tile.getX() && t.getYPos() == tile.getY()).findFirst().get();
                 tile.addObserver(tilePanel);
             }

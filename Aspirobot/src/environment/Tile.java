@@ -1,24 +1,28 @@
 package ca.uqac.IA.Devoir1.environment;
 
+import ca.uqac.IA.Devoir1.util.Position;
+
 import java.util.Observable;
 
 public class Tile extends Observable{
-    private int x;
-    private int y;
+    private Position position;
     private boolean hasDirt=false;
     private boolean hasJewel=false;
 
     public Tile(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.position = new Position(x,y);
+    }
+
+    public Tile(Position position) {
+        this.position = position;
     }
 
     public int getX() {
-        return x;
+        return position.getX();
     }
 
     public int getY() {
-        return y;
+        return position.getY();
     }
 
 
@@ -29,7 +33,7 @@ public class Tile extends Observable{
     public void setHasDirt(boolean hasDirt) {
         this.hasDirt = hasDirt;
         setChanged();
-        notifyObservers("Dirt");
+        notifyObservers(this);
     }
 
     public boolean isHasJewel() {
@@ -39,7 +43,7 @@ public class Tile extends Observable{
     public void setHasJewel(boolean hasJewel) {
         this.hasJewel = hasJewel;
         setChanged();
-        notifyObservers("Jewel");
+        notifyObservers(this);
 
     }
 }
