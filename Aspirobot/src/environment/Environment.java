@@ -1,6 +1,5 @@
 package ca.uqac.IA.Devoir1.environment;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.TimerTask;
 
@@ -8,20 +7,20 @@ public class Environment extends TimerTask {
     public static final int DEFAULT_TICKRATE = 60;
     private static final int JEWEL_INV_PROBABILITY = 5;
     private static final int DIRT_INV_PROBABILITY = 3;
-    private ArrayList<ArrayList<Tile>> map;
+    private Map map;
     private int electricityUsed;
     private boolean isGameRunning;
     private Random rng;
 
     private void generateDirt(){
-        int x = rng.nextInt(map.size()-1);
-        int y = rng.nextInt(map.get(x).size()-1);
-        map.get(x).get(y).setHasDirt(true);
+        int x = rng.nextInt(map.getNbLines()-1);
+        int y = rng.nextInt(map.getNbTilesInLine(x)-1);
+        map.getTile(x,y).setHasDirt(true);
     }
     private void generateJewel(){
-        int x = rng.nextInt(map.size()-1);
-        int y = rng.nextInt(map.get(x).size()-1);
-        map.get(x).get(y).setHasJewel(false);
+        int x = rng.nextInt(map.getNbLines()-1);
+        int y = rng.nextInt(map.getNbTilesInLine(x)-1);
+        map.getTile(x,y).setHasJewel(true);
     }
     private boolean shouldThereBeANewDirtySpace(){
         int result = rng.nextInt(DIRT_INV_PROBABILITY);
@@ -33,21 +32,7 @@ public class Environment extends TimerTask {
     }
 
     public Environment() {
-        map = new ArrayList<>(3);
-        for (int i = 0; i < 3; i++) {
-            if(i != 1){
-                map.add(i,new ArrayList<>(3));
-                for(int j = 0; j < 3; j++){
-                    map.get(i).add(j, new Tile(i,j));
-                }
-            }else{
-                map.add(i,new ArrayList<>(5));
-                for(int j = 0; j < 5; j++){
-                    map.get(i).add(j, new Tile(i,j));
-                }
-            }
-
-        }
+        map = new Map();
         electricityUsed = 0;
         isGameRunning = false;
         rng = new Random();
@@ -67,7 +52,7 @@ public class Environment extends TimerTask {
         computeNextState();
     }
 
-    public ArrayList<ArrayList<Tile>> getMap() {
+    public Map getMap() {
         return map;
     }
 
