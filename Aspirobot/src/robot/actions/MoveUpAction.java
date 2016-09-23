@@ -3,6 +3,7 @@ package ca.uqac.IA.Devoir1.robot.actions;
 import ca.uqac.IA.Devoir1.environment.Environment;
 import ca.uqac.IA.Devoir1.robot.Robot;
 import ca.uqac.IA.Devoir1.robot.State;
+import ca.uqac.IA.Devoir1.util.Position;
 
 /**
  * Created by dhawo on 23/09/2016.
@@ -12,7 +13,8 @@ public class MoveUpAction extends Action{
         int x = state.getCurrentTile().getX();
         int destY = state.getCurrentTile().getY()-1;
         try{
-            state.getMap().getTile(x,destY);
+            this.afterState = state;
+            this.afterState.moveRobot(new Position(x,destY));
         }catch(IndexOutOfBoundsException ex){
             this.setLegal(false);
         }

@@ -24,6 +24,12 @@ public class State {
         this.currentTile = currentTile;
     }
 
+    public State(State other) {
+        this.map = other.getMap();
+        this.electricityUsed = other.getElectricityUsed();
+        this.currentTile = other.getCurrentTile();
+    }
+
     public Map getMap() {
         return map;
     }

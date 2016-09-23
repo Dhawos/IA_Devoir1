@@ -8,7 +8,7 @@ import ca.uqac.IA.Devoir1.robot.State;
  * Created by dhawo on 23/09/2016.
  */
 public abstract class Action {
-    private State afterState;
+    protected State afterState;
     private boolean legal;
     public abstract void doAction(Environment env, Robot robot);
 

@@ -1,8 +1,6 @@
 package ca.uqac.IA.Devoir1.robot;
 
-import ca.uqac.IA.Devoir1.robot.actions.Action;
-import ca.uqac.IA.Devoir1.robot.actions.MoveDownAction;
-import ca.uqac.IA.Devoir1.robot.actions.MoveUpAction;
+import ca.uqac.IA.Devoir1.robot.actions.*;
 
 import java.util.LinkedList;
 
@@ -38,9 +36,19 @@ public class Robot implements Runnable {
             list.add(moveUp);
         }
         MoveDownAction moveDown = new MoveDownAction(this.getState());
-        if(moveUp.isLegal()){
+        if(moveDown.isLegal()){
             list.add(moveDown);
         }
+        MoveLeftAction moveLeft = new MoveLeftAction(this.getState());
+        if(moveLeft.isLegal()){
+            list.add(moveLeft);
+        }
+        MoveRightAction moveRight = new MoveRightAction(this.getState());
+        if(moveRight.isLegal()){
+            list.add(moveRight);
+        }
+        SweepAction sweepAction = new SweepAction(this.getState());
+        PickUpAction pickUpAction = new PickUpAction(this.getState());
         return list;
     }
 }
