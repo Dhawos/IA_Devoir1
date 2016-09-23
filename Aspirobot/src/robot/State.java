@@ -1,35 +1,31 @@
 package ca.uqac.IA.Devoir1.robot;
 
+import ca.uqac.IA.Devoir1.environment.Map;
 import ca.uqac.IA.Devoir1.environment.Tile;
-
-import java.util.ArrayList;
+import ca.uqac.IA.Devoir1.util.Position;
 
 /**
  * Created by dhawo on 23/09/2016.
  */
 public class State {
-    private ArrayList<ArrayList<Tile>> map;
+    private Map map;
     private int electricityUsed;
     private Tile currentTile;
 
-    public State(ArrayList<ArrayList<Tile>> map) {
+    public State(Map map) {
         this.map = map;
         this.electricityUsed = 0;
-        this.currentTile = map.get(0).get(0);
+        this.currentTile = map.getTile(0,0);
     }
 
-    public State(ArrayList<ArrayList<Tile>> map, int electricityUsed, Tile currentTile) {
+    public State(Map map, int electricityUsed, Tile currentTile) {
         this.map = map;
         this.electricityUsed = electricityUsed;
         this.currentTile = currentTile;
     }
 
-    public ArrayList<ArrayList<Tile>> getMap() {
+    public Map getMap() {
         return map;
-    }
-
-    public void setMap(ArrayList<ArrayList<Tile>> map) {
-        this.map = map;
     }
 
     public int getElectricityUsed() {
@@ -44,7 +40,7 @@ public class State {
         return currentTile;
     }
 
-    public void setCurrentTile(Tile currentTile) {
-        this.currentTile = currentTile;
+    public void moveRobot(Position pos){
+        this.currentTile = this.getMap().getTile(pos);
     }
 }

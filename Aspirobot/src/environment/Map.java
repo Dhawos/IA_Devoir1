@@ -1,5 +1,7 @@
 package ca.uqac.IA.Devoir1.environment;
 
+import ca.uqac.IA.Devoir1.util.Position;
+
 import java.util.ArrayList;
 
 /**
@@ -38,6 +40,12 @@ public class Map {
         }else{
             return this.data.get(x).get(y);
         }
+    }
+
+    public Tile getTile(Position pos) throws ArrayIndexOutOfBoundsException{
+        int x = pos.getX();
+        int y = pos.getY();
+        return getTile(x,y);
     }
 
     public int getNbLines(){
