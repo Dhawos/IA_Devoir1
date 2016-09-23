@@ -7,6 +7,7 @@ import ca.uqac.IA.Devoir1.view.MainFrame;
 import ca.uqac.IA.Devoir1.view.TilePanel;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Aspirobot {
 
@@ -20,10 +21,9 @@ public class Aspirobot {
         main.initControllers();
         main.initView();
 
-        // DEBUG
-
-        main.environment.getMap().get(1).get(4).setHasJewel(true);
-    }
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(main.environment, 0, 1*1000);
+}
 
     public void initView() {
         MainFrame mainFrame = new MainFrame();

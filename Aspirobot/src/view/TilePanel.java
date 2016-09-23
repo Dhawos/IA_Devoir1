@@ -32,19 +32,16 @@ public class TilePanel extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(arg instanceof String){
-            switch ((String)arg){
-                case "Dirt":
-                    label.setText("D");
-                    break;
-                case "Jewel":
-                    label.setText("J");
-                    break;
-                case "Aspirobot":
-                    label.setText("A");
-                    break;
-                default:
-                    break;
-
+            String value = (String)arg;
+            label.setText("");
+            if(value.equals("Dirt")){
+                label.setText(label.getText() + " D");
+            }
+            if(value.equals("Jewel")){
+                label.setText(label.getText() + " J");
+            }
+            if(value.equals("Aspirobot")){
+                label.setText(label.getText() + " A");
             }
         }
     }

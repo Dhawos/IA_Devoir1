@@ -21,7 +21,7 @@ public class Environment extends TimerTask {
     private void generateJewel(){
         int x = rng.nextInt(map.size()-1);
         int y = rng.nextInt(map.get(x).size()-1);
-        map.get(x).get(y).setHasDirt(false);
+        map.get(x).get(y).setHasJewel(false);
     }
     private boolean shouldThereBeANewDirtySpace(){
         int result = rng.nextInt(DIRT_INV_PROBABILITY);
