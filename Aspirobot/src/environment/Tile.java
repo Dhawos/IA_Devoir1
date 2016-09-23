@@ -30,6 +30,7 @@ public class Tile extends Observable{
         this.hasDirt = hasDirt;
         setChanged();
         notifyObservers("Dirt");
+        System.out.println("Dirt has been set on tile (" + x + "," + y + ").");
     }
 
     public boolean isHasJewel() {
@@ -40,6 +41,7 @@ public class Tile extends Observable{
         this.hasJewel = hasJewel;
         setChanged();
         notifyObservers("Jewel");
+        System.out.println("Jewel has been set on tile (" + x + "," + y + ").");
 
     }
 }

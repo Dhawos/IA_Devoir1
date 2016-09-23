@@ -1,0 +1,36 @@
+package ca.uqac.IA.Devoir1.view;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+
+public class LogPanel extends JPanel implements Consumer {
+    private JTextArea textArea;
+
+    public LogPanel() {
+        setLayout(new BorderLayout());
+        setBorder(new EmptyBorder(0, 0, 0, 10));
+        textArea = new JTextArea();
+        add(new JScrollPane(textArea),BorderLayout.CENTER);
+    }
+
+    @Override
+    public void appendText(final String text) {
+        if (EventQueue.isDispatchThread()) {
+            textArea.append(text);
+            textArea.setCaretPosition(textArea.getText().length());
+        } else {
+
+            EventQueue.invokeLater(() -> {
+                appendText(text);
+            });
+
+
+        }
+    }
+
+}
+
+interface Consumer {
+    public void appendText(String text);
+}
