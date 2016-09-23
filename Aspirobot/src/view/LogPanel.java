@@ -10,7 +10,7 @@ public class LogPanel extends JPanel implements Consumer {
     public LogPanel() {
         setLayout(new BorderLayout());
         setBorder(new EmptyBorder(0, 0, 0, 10));
-        textArea = new JTextArea();
+        textArea = new JTextArea(6,2);
         add(new JScrollPane(textArea),BorderLayout.CENTER);
     }
 

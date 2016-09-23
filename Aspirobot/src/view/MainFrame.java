@@ -23,7 +23,7 @@ public class MainFrame extends JFrame implements Observer {
         setSize(800, 600);
         setLayout(new BorderLayout(0, 0));
         JPanel legendPanel = new JPanel(new GridLayout(3, 1, 5, 0));
-        legendPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 300, 40), BorderFactory.createTitledBorder("Legend")));
+        legendPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 250, 40), BorderFactory.createTitledBorder("Legend")));
         legendPanel.add(new JLabel("A is for Aspirobot"));
         legendPanel.add(new JLabel("D is for Dust"));
         legendPanel.add(new JLabel("J is for Jewel"));
