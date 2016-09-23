@@ -48,7 +48,9 @@ public class Robot implements Runnable {
             list.add(moveRight);
         }
         SweepAction sweepAction = new SweepAction(this.getState());
+        list.add(sweepAction);
         PickUpAction pickUpAction = new PickUpAction(this.getState());
+        list.add(pickUpAction);
         return list;
     }
 }
