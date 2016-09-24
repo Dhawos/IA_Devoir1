@@ -1,13 +1,15 @@
 package ca.uqac.IA.Devoir1.robot;
 
 import ca.uqac.IA.Devoir1.robot.actions.*;
+import ca.uqac.IA.Devoir1.util.Position;
 
 import java.util.LinkedList;
+import java.util.Observable;
 
 /**
  * Created by dhawo on 23/09/2016.
  */
-public class Robot implements Runnable {
+public class Robot extends Observable implements Runnable {
     private boolean isAlive;
     private State state;
 
@@ -53,4 +55,11 @@ public class Robot implements Runnable {
         list.add(pickUpAction);
         return list;
     }
+
+    public void move(Position position){
+        state.moveRobot(position);
+        state.setElectricityUsed(state.getElectricityUsed() + 1);
+        notifyObservers();
+    }
+
 }
