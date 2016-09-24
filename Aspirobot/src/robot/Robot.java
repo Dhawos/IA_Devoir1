@@ -59,7 +59,7 @@ public class Robot extends Observable implements Runnable {
     public void move(Position position){
         state.moveRobot(position);
         state.setElectricityUsed(state.getElectricityUsed() + 1);
-        notifyObservers();
+        notifyObservers(position);
     }
 
 }

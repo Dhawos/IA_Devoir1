@@ -4,6 +4,7 @@ import ca.uqac.IA.Devoir1.environment.Tile;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.text.Position;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -42,6 +43,9 @@ public class TilePanel extends JPanel implements Observer {
             if(tile.isHasJewel()){
                 label.setText(label.getText() + " J");
             }
+        }
+        if(arg instanceof Position){
+            label.setText(label.getText() + " A");
         }
     }
 }

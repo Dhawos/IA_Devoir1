@@ -1,6 +1,8 @@
 package ca.uqac.IA.Devoir1.view;
 
 
+import ca.uqac.IA.Devoir1.util.Position;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -90,11 +92,7 @@ public class MainFrame extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        /*if(Aspirobot.isRunning())
-            controlButton.setText("Stop Aspirobot");
-        else
-            controlButton.setText("Run Aspirobot");
-        */
+
     }
 
     public JButton getControlButton() {

@@ -3,6 +3,7 @@ package ca.uqac.IA.Devoir1;
 import ca.uqac.IA.Devoir1.controllers.RunController;
 import ca.uqac.IA.Devoir1.environment.Environment;
 import ca.uqac.IA.Devoir1.environment.Tile;
+import ca.uqac.IA.Devoir1.robot.Robot;
 import ca.uqac.IA.Devoir1.view.MainFrame;
 import ca.uqac.IA.Devoir1.view.TilePanel;
 
@@ -12,6 +13,7 @@ public class Aspirobot {
 
     private RunController controller;
     private Environment environment;
+    private Robot robot = new Robot();
 
     public static void main(String[] args) {
         Aspirobot main = new Aspirobot();
@@ -33,6 +35,7 @@ public class Aspirobot {
                 Tile tile = environment.getMap().getTile(i,j);
                 TilePanel tilePanel = mainFrame.getTileMap().stream().filter(t -> t.getXPos() == tile.getX() && t.getYPos() == tile.getY()).findFirst().get();
                 tile.addObserver(tilePanel);
+                robot.addObserver(tilePanel);
             }
         }
     }
