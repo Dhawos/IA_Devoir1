@@ -57,4 +57,16 @@ public class State {
     public void moveRobot(Position pos){
         this.currentTile = this.getMap().getTile(pos);
     }
+
+    public boolean compare(State other){
+        boolean same = true;
+        for(int i = 0;i < this.map.getNbLines(); i++){
+            for(int j = 0; j < this.map.getNbTilesInLine(i); j++){
+                if(!(this.map.getTile(i,j).isHasJewel() == other.map.getTile(i,j).isHasJewel() && this.map.getTile(i,j).isHasDirt() == other.map.getTile(i,j).isHasDirt())){
+                    same = false;
+                }
+            }
+        }
+        return same;
+    }
 }

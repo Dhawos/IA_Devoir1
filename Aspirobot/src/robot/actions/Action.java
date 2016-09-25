@@ -1,6 +1,6 @@
 package ca.uqac.IA.Devoir1.robot.actions;
 
-import ca.uqac.IA.Devoir1.environment.Environment;
+import ca.uqac.IA.Devoir1.environment.InterfaceEnvironment;
 import ca.uqac.IA.Devoir1.robot.Robot;
 import ca.uqac.IA.Devoir1.robot.State;
 
@@ -10,7 +10,7 @@ import ca.uqac.IA.Devoir1.robot.State;
 public abstract class Action {
     protected State afterState;
     private boolean legal;
-    public abstract void doAction(Environment env, Robot robot);
+    public abstract void doAction(InterfaceEnvironment env, Robot robot);
 
     public State getAfterState() {
         return afterState;

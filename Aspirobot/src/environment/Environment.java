@@ -11,6 +11,7 @@ public class Environment extends TimerTask {
     private int electricityUsed;
     private boolean isGameRunning;
     private Random rng;
+    private int jewelsSwept;
 
     private void generateDirt(){
         int x = rng.nextInt(map.getNbLines()-1);
@@ -34,6 +35,7 @@ public class Environment extends TimerTask {
     public Environment() {
         map = new Map();
         electricityUsed = 0;
+        jewelsSwept = 0;
         isGameRunning = false;
         rng = new Random();
     }
@@ -58,5 +60,9 @@ public class Environment extends TimerTask {
 
     public boolean isGameRunning() {
         return isGameRunning;
+    }
+
+    public void incrementNbJewelsSwept(){
+        this.jewelsSwept++;
     }
 }

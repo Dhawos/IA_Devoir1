@@ -1,5 +1,7 @@
 package ca.uqac.IA.Devoir1.robot;
 
+import ca.uqac.IA.Devoir1.environment.InterfaceEnvironment;
+import ca.uqac.IA.Devoir1.environment.Tile;
 import ca.uqac.IA.Devoir1.robot.actions.*;
 import ca.uqac.IA.Devoir1.robot.sensors.DirtSensor;
 import ca.uqac.IA.Devoir1.robot.sensors.JewelSensor;
@@ -14,14 +16,23 @@ import java.util.Observable;
 public class Robot extends Observable implements Runnable {
     private boolean isAlive;
     private State state;
+    private State goal;
     private JewelSensor jewelSensor;
     private DirtSensor dirtSensor;
+    private LinkedList<Tile> tileQueue;
+    private InterfaceEnvironment env;
 
     public Robot(JewelSensor jewelSensor, DirtSensor dirtSensor) {
         this.jewelSensor = jewelSensor;
         this.dirtSensor = dirtSensor;
         this.isAlive = true;
         this.state = new State();
+        this.tileQueue = new LinkedList<Tile>();
+        this.goal = new State();
+    }
+
+    public void setEnv(InterfaceEnvironment env){
+        this.env = env;
     }
 
     private void observeEnvironmentAndUpdateState(){
@@ -31,10 +42,11 @@ public class Robot extends Observable implements Runnable {
 
     public Action chooseAnAction(){
         LinkedList<Action> possibleActions = getLegalActions();
-        /*for(Action action : possibleActions){
-            //Evaluate if action is good and if it is, select it
-
-        }*/
+        for(Action action : possibleActions){
+            if(action.getAfterState().compare(this.goal)){
+                return action;
+            }
+        }
         return possibleActions.peek();
     }
 
@@ -43,7 +55,12 @@ public class Robot extends Observable implements Runnable {
         while (isAlive()){
             observeEnvironmentAndUpdateState();
             Action selectedAction  = chooseAnAction();
-            //selectedAction.doAction(); Check how we can pass the environment to the bot without he having full knowledge of the environment
+            selectedAction.doAction(this.env,this); //Check how we can pass the environment to the bot without he having full knowledge of the environment
+            try{
+                Thread.sleep(10000);
+            }catch (InterruptedException ex){
+
+            }
         }
     }
 

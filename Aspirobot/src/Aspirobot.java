@@ -2,6 +2,7 @@ package ca.uqac.IA.Devoir1;
 
 import ca.uqac.IA.Devoir1.controllers.RunController;
 import ca.uqac.IA.Devoir1.environment.Environment;
+import ca.uqac.IA.Devoir1.environment.InterfaceEnvironment;
 import ca.uqac.IA.Devoir1.environment.Tile;
 import ca.uqac.IA.Devoir1.robot.Robot;
 import ca.uqac.IA.Devoir1.robot.sensors.DirtSensor;
@@ -22,11 +23,14 @@ public class Aspirobot {
 
         main.environment = new Environment();
         main.robot = new Robot(new JewelSensor(main.environment),new DirtSensor(main.environment));
+        main.robot.setEnv(new InterfaceEnvironment(main.environment,main.robot));
         main.initControllers();
         main.initView();
 
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(main.environment, 0, (int)(60.0/Environment.DEFAULT_TICKRATE*1000));
+        Thread robotThread = new Thread(main.robot);
+        robotThread.start();
 }
 
     public void initView() {

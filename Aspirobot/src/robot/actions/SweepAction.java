@@ -1,7 +1,6 @@
 package ca.uqac.IA.Devoir1.robot.actions;
 
-import ca.uqac.IA.Devoir1.environment.Environment;
-import ca.uqac.IA.Devoir1.environment.Tile;
+import ca.uqac.IA.Devoir1.environment.InterfaceEnvironment;
 import ca.uqac.IA.Devoir1.robot.Robot;
 import ca.uqac.IA.Devoir1.robot.State;
 
@@ -16,9 +15,8 @@ public class SweepAction extends Action {
     }
 
     @Override
-    public void doAction(Environment env, Robot robot) {
-        Tile realTile = env.getMap().getTile(robot.getState().getCurrentTile().getX(), robot.getState().getCurrentTile().getY());
-        realTile.setHasDirt(false);
+    public void doAction(InterfaceEnvironment env, Robot robot) {
+        env.sweep();
         System.out.println("Aspirbot has swept dirt");
     }
 }
