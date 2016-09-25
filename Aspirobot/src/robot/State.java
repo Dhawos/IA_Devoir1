@@ -12,6 +12,12 @@ public class State {
     private int electricityUsed;
     private Tile currentTile;
 
+    public State() {
+        this.map = new Map();
+        this.electricityUsed = 0;
+        this.currentTile = map.getTile(0,0);
+    }
+
     public State(Map map) {
         this.map = map;
         this.electricityUsed = 0;
@@ -45,6 +51,8 @@ public class State {
     public Tile getCurrentTile() {
         return currentTile;
     }
+
+    public Position getCurrentPosition(){return new Position(currentTile.getX(),currentTile.getY());}
 
     public void moveRobot(Position pos){
         this.currentTile = this.getMap().getTile(pos);

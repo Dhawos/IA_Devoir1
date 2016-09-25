@@ -28,8 +28,8 @@ public class Map {
         }
     }
 
-    public Map(ArrayList<ArrayList<Tile>> date) {
-        this.data = date;
+    public Map(ArrayList<ArrayList<Tile>> data) {
+        this.data = data;
     }
 
     public Tile getTile(int x, int y) throws ArrayIndexOutOfBoundsException{

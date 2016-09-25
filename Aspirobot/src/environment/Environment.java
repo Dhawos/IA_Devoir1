@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.TimerTask;
 
 public class Environment extends TimerTask {
-    public static final int DEFAULT_TICKRATE = 60;
+    public static final int DEFAULT_TICKRATE = 20;//Number of evaluation per minute
     private static final int JEWEL_INV_PROBABILITY = 5;
     private static final int DIRT_INV_PROBABILITY = 3;
     private Map map;
