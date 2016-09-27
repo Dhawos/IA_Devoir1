@@ -14,8 +14,9 @@ public class MoveRightAction extends Action{
         int destX = state.getCurrentTile().getX()+1;
         int y = state.getCurrentTile().getY();
         try{
-            this.afterState = state;
+            this.afterState = new State(state);
             this.afterState.moveRobot(new Position(destX,y));
+            this.setLegal(true);
         }catch(IndexOutOfBoundsException ex){
             this.setLegal(false);
         }
