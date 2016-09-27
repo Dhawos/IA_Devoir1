@@ -10,6 +10,7 @@ import ca.uqac.IA.Devoir1.robot.sensors.JewelSensor;
 import ca.uqac.IA.Devoir1.view.MainFrame;
 import ca.uqac.IA.Devoir1.view.TilePanel;
 
+import java.awt.*;
 import java.util.Timer;
 
 public class Aspirobot {
@@ -44,7 +45,7 @@ public class Aspirobot {
                 tile.addObserver(tilePanel);
                 robot.addObserver(tilePanel);
                 if(i == 0 && j == 0){
-                    tilePanel.getLabel().setText("A");
+                    tilePanel.setBackground(Color.BLUE);
                 }
             }
         }

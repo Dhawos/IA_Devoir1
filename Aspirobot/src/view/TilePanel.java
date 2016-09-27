@@ -13,7 +13,7 @@ public class TilePanel extends JPanel implements Observer {
 
     private int xPos;
     private int yPos;
-    private JLabel label = new JLabel("empty");
+    private JLabel label = new JLabel("");
 
     public int getXPos() {
         return xPos;
@@ -24,7 +24,7 @@ public class TilePanel extends JPanel implements Observer {
     }
 
 
-    public TilePanel(int x, int y) {
+    public TilePanel(int y, int x) {
         xPos = x;
         yPos = y;
         add(label);
@@ -47,12 +47,12 @@ public class TilePanel extends JPanel implements Observer {
         if(arg instanceof Position){
             Position robotPosition = (Position)arg;
             String text = label.getText();
-            
-            if(text.contains("A")){
-                label.setText(text.replace("A", ""));
+
+            if(getBackground() == Color.BLUE){
+                this.setBackground(Color.WHITE);
             }
-            if(robotPosition.getX() == xPos && robotPosition.getY() == yPos){
-                label.setText(text + " A");
+            if(robotPosition.getX() == yPos && robotPosition.getY() == xPos){ //inverted to stick with model
+                setBackground(Color.BLUE);
             }
 
         }

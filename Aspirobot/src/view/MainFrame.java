@@ -26,7 +26,7 @@ public class MainFrame extends JFrame implements Observer {
         setLayout(new BorderLayout(0, 0));
         JPanel legendPanel = new JPanel(new GridLayout(3, 1, 5, 0));
         legendPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 250, 40), BorderFactory.createTitledBorder("Legend")));
-        legendPanel.add(new JLabel("A is for Aspirobot"));
+        legendPanel.add(new JLabel("Blue color is for Aspirobot"));
         legendPanel.add(new JLabel("D is for Dust"));
         legendPanel.add(new JLabel("J is for Jewel"));
 
@@ -51,7 +51,7 @@ public class MainFrame extends JFrame implements Observer {
             for (int j = 0; j < gamePanelSquares[i].length; j++) {
                 JPanel panel;
                 if (j < 3 || i == 1) {
-                    panel = new TilePanel(i, j);
+                    panel = new TilePanel(j, i); //inverted to stick with model
                     tileMap.add((TilePanel) panel);
                 } else {
                     panel = new JPanel();
