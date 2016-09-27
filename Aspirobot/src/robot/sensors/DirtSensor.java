@@ -1,23 +1,19 @@
 package ca.uqac.IA.Devoir1.robot.sensors;
 
 import ca.uqac.IA.Devoir1.environment.Environment;
-import ca.uqac.IA.Devoir1.util.Position;
+import ca.uqac.IA.Devoir1.robot.Robot;
 
 /**
  * Created by dhawo on 23/09/2016.
  */
 public class DirtSensor extends Sensor<Boolean> {
 
-    public DirtSensor(Environment env) {
-        super(env);
+    public DirtSensor(Environment env, Robot robot) {
+        super(env,robot);
     }
 
     @Override
-    public Boolean getInfo(int x, int y) {
-        return this.env.getMap().getTile(x,y).isHasDirt();
-    }
-    @Override
-    public Boolean getInfo(Position pos) {
-        return this.env.getMap().getTile(pos).isHasDirt();
+    public Boolean getInfo() {
+        return this.env.getMap().getTile(robot.getState().getCurrentPosition()).isHasDirt();
     }
 }

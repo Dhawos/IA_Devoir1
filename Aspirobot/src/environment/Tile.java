@@ -17,6 +17,12 @@ public class Tile extends Observable{
         this.position = position;
     }
 
+    public Tile(Tile other){
+        this.position = new Position(other.getPosition());
+        this.hasDirt = other.isHasDirt();
+        this.hasJewel = other.isHasJewel();
+    }
+
     public int getX() {
         return position.getX();
     }
@@ -25,6 +31,9 @@ public class Tile extends Observable{
         return position.getY();
     }
 
+    public Position getPosition(){
+        return this.position;
+    }
 
     public boolean isHasDirt() {
         return hasDirt;

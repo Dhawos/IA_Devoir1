@@ -31,9 +31,9 @@ public class State {
     }
 
     public State(State other) {
-        this.map = other.getMap();
+        this.map = new Map(other.getMap());
         this.electricityUsed = other.getElectricityUsed();
-        this.currentTile = other.getCurrentTile();
+        this.currentTile = this.map.getTile(other.getCurrentPosition());
     }
 
     public Map getMap() {

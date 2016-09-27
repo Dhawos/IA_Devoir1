@@ -22,9 +22,7 @@ public class Robot extends Observable implements Runnable {
     private LinkedList<Tile> tileQueue;
     private InterfaceEnvironment env;
 
-    public Robot(JewelSensor jewelSensor, DirtSensor dirtSensor) {
-        this.jewelSensor = jewelSensor;
-        this.dirtSensor = dirtSensor;
+    public Robot() {
         this.isAlive = true;
         this.state = new State();
         this.tileQueue = new LinkedList<Tile>();
@@ -35,9 +33,17 @@ public class Robot extends Observable implements Runnable {
         this.env = env;
     }
 
+    public void addSensor(DirtSensor sensor){
+        this.dirtSensor = sensor;
+    }
+
+    public void addSensor(JewelSensor sensor){
+        this.jewelSensor = sensor;
+    }
+
     private void observeEnvironmentAndUpdateState(){
-        this.state.getCurrentTile().setHasDirt(this.dirtSensor.getInfo(this.state.getCurrentPosition()));
-        this.state.getCurrentTile().setHasJewel(this.jewelSensor.getInfo(this.state.getCurrentPosition()));
+        this.state.getCurrentTile().setHasDirt(this.dirtSensor.getInfo());
+        this.state.getCurrentTile().setHasJewel(this.jewelSensor.getInfo());
     }
 
     public Action chooseAnAction(){

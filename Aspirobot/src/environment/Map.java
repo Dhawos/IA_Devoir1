@@ -28,6 +28,24 @@ public class Map {
         }
     }
 
+    public Map(Map other) {
+        this.data = new ArrayList<>(3);
+        for (int i = 0; i < 3; i++) {
+            if(i != 1){
+                this.data.add(i,new ArrayList<>(3));
+                for(int j = 0; j < 3; j++){
+                    this.data.get(i).add(j, new Tile(other.getTile(i,j)));
+                }
+            }else{
+                this.data.add(i,new ArrayList<>(5));
+                for(int j = 0; j < 5; j++){
+                    this.data.get(i).add(j, new Tile(other.getTile(i,j)));
+                }
+            }
+
+        }
+    }
+
     public Map(ArrayList<ArrayList<Tile>> data) {
         this.data = data;
     }
