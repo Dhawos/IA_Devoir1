@@ -42,12 +42,19 @@ public class Aspirobot {
 
         for (int i=0;i<environment.getMap().getNbLines();i++) {
             for (int j=0;j<environment.getMap().getNbTilesInLine(i);j++) {
-                Tile tile = environment.getMap().getTile(i,j);
-                TilePanel tilePanel = mainFrame.getTileMap().stream().filter(t -> t.getXPos() == tile.getX() && t.getYPos() == tile.getY()).findFirst().get();
-                tile.addObserver(tilePanel);
-                robot.addObserver(tilePanel);
+                Tile realTile = environment.getMap().getTile(i,j);
+                TilePanel realTilePanel = mainFrame.getRealTileMap().stream().filter(t -> t.getXPos() == realTile.getX() && t.getYPos() == realTile.getY()).findFirst().get();
+                realTile.addObserver(realTilePanel);
+                robot.addObserver(realTilePanel);
+
+                Tile robotTile = robot.getState().getMap().getTile(i,j);
+                TilePanel robotTilePanel = mainFrame.getRobotTileMap().stream().filter(t -> t.getXPos() == robotTile.getX() && t.getYPos() == robotTile.getY()).findFirst().get();
+                robotTile.addObserver(robotTilePanel);
+                robot.addObserver(robotTilePanel);
+                
                 if(i == 0 && j == 0){
-                    tilePanel.setBackground(Color.BLUE);
+                    realTilePanel.setBackground(Color.BLUE);
+                    robotTilePanel.setBackground(Color.BLUE);
                 }
             }
         }

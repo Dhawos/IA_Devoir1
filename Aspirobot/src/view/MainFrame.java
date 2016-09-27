@@ -16,7 +16,8 @@ public class MainFrame extends JFrame implements Observer {
     static final String TITLE = "ASPIROBOT T-0.1";
     private JButton controlButton = new JButton("Run Aspirobot");
     private JPanel[][] gamePanelSquares = new JPanel[3][5];
-    private ArrayList<TilePanel> tileMap = new ArrayList(11);
+    private ArrayList<TilePanel> realTileMap;
+    private ArrayList<TilePanel> robotTileMap;
 
 
     public MainFrame() {
@@ -24,31 +25,34 @@ public class MainFrame extends JFrame implements Observer {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 600);
         setLayout(new BorderLayout(0, 0));
-        JPanel legendPanel = new InfoPanel(new GridLayout(5, 1, 5, 0));
+        JPanel legendPanel = new InfoPanel(new GridLayout(6, 1, 5, 0));
         legendPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 150, 40), BorderFactory.createTitledBorder("Information")));
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(controlButton, BorderLayout.EAST);
-        bottomPanel.setBorder(new EmptyBorder(10,20,20,20));
+        bottomPanel.setBorder(new EmptyBorder(10, 20, 20, 20));
 
-        JPanel masterPanel = new JPanel(new GridLayout(1,0));
+        JPanel centerPanel = new JPanel(new GridLayout(1, 0));
 
-        createBoard(masterPanel, "Real Board");
-        createBoard(masterPanel, "Aspirobot's Board");
+        realTileMap = createBoard(centerPanel, "Real Board");
+        robotTileMap = createBoard(centerPanel, "Aspirobot's Board");
 
         initLogger(bottomPanel);
 
-        add(masterPanel, BorderLayout.CENTER);
+        add(centerPanel, BorderLayout.CENTER);
         add(legendPanel, BorderLayout.WEST);
         add(bottomPanel, BorderLayout.SOUTH);
         setResizable(false);
         setVisible(true);
 
     }
-    private void createBoard(JPanel masterPanel, String boardName){
+
+    private ArrayList<TilePanel> createBoard(JPanel parentPanel, String boardName) {
         JPanel gamePanel = new JPanel(new BorderLayout());
         JPanel boardPanel = new JPanel(new GridLayout(0, 6));
         boardPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+        ArrayList<TilePanel> tileMap = new ArrayList<>(11);
 
         for (int i = 0; i < gamePanelSquares.length; i++) {
             for (int j = 0; j < gamePanelSquares[i].length; j++) {
@@ -86,17 +90,20 @@ public class MainFrame extends JFrame implements Observer {
         label.setHorizontalAlignment(JLabel.CENTER);
         gamePanel.add(label, BorderLayout.SOUTH);
 
-        masterPanel.add(gamePanel);
+        parentPanel.add(gamePanel);
+
+        return tileMap;
 
     }
-    private void initLogger(JPanel bottomPanel){
-        EventQueue.invokeLater( () -> {
-                LogPanel logPanel = new LogPanel();
-                bottomPanel.add(logPanel, BorderLayout.CENTER);
 
-                PrintStream ps = System.out;
-                System.setOut(new PrintStream(new StreamLogger("STDOUT", logPanel, ps)));
-            });
+    private void initLogger(JPanel bottomPanel) {
+        EventQueue.invokeLater(() -> {
+            LogPanel logPanel = new LogPanel();
+            bottomPanel.add(logPanel, BorderLayout.CENTER);
+
+            PrintStream ps = System.out;
+            System.setOut(new PrintStream(new StreamLogger("STDOUT", logPanel, ps)));
+        });
     }
 
     @Override
@@ -108,7 +115,11 @@ public class MainFrame extends JFrame implements Observer {
         return controlButton;
     }
 
-    public ArrayList<TilePanel> getTileMap() {
-        return tileMap;
+    public ArrayList<TilePanel> getRealTileMap() {
+        return realTileMap;
+    }
+
+    public ArrayList<TilePanel> getRobotTileMap() {
+        return robotTileMap;
     }
 }
