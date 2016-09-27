@@ -55,7 +55,7 @@ public class Robot extends Observable implements Runnable {
         while (isAlive()){
             observeEnvironmentAndUpdateState();
             Action selectedAction  = chooseAnAction();
-            selectedAction.doAction(this.env,this); //Check how we can pass the environment to the bot without he having full knowledge of the environment
+            selectedAction.doAction(this.env,this);
             try{
                 Thread.sleep(10000);
             }catch (InterruptedException ex){
