@@ -115,5 +115,11 @@ public class MainFrame extends JFrame implements Observer {
         return controlButton;
     }
 
+    public ArrayList<TilePanel> getRealTileMap() {
+        return realTileMap;
+    }
 
+    public ArrayList<TilePanel> getRobotTileMap() {
+        return robotTileMap;
+    }
 }
