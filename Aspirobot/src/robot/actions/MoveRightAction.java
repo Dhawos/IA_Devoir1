@@ -11,11 +11,11 @@ import ca.uqac.IA.Devoir1.util.Position;
  */
 public class MoveRightAction extends Action{
     public MoveRightAction(State state) {
-        int destX = state.getCurrentTile().getX()+1;
-        int y = state.getCurrentTile().getY();
+        int x = state.getCurrentTile().getX();
+        int destY = state.getCurrentTile().getY()+1;
         try{
             this.afterState = new State(state);
-            this.afterState.moveRobot(new Position(destX,y));
+            this.afterState.moveRobot(new Position(x,destY));
             this.setLegal(true);
         }catch(IndexOutOfBoundsException ex){
             this.setLegal(false);
