@@ -11,29 +11,27 @@ public class State {
     private Map map;
     private int electricityUsed;
     private Tile currentTile;
+    private int nbJeweledPickedUp;
 
     public State() {
         this.map = new Map();
         this.electricityUsed = 0;
         this.currentTile = map.getTile(0,0);
+        this.nbJeweledPickedUp = 0;
     }
 
     public State(Map map) {
         this.map = map;
         this.electricityUsed = 0;
         this.currentTile = map.getTile(0,0);
-    }
-
-    public State(Map map, int electricityUsed, Tile currentTile) {
-        this.map = map;
-        this.electricityUsed = electricityUsed;
-        this.currentTile = currentTile;
+        this.nbJeweledPickedUp = 0;
     }
 
     public State(State other) {
         this.map = new Map(other.getMap());
         this.electricityUsed = other.getElectricityUsed();
         this.currentTile = this.map.getTile(other.getCurrentPosition());
+        this.nbJeweledPickedUp = other.getNbJeweledPickedUp();
     }
 
     public Map getMap() {
@@ -54,6 +52,14 @@ public class State {
 
     public Position getCurrentPosition(){return new Position(currentTile.getX(),currentTile.getY());}
 
+    public int getNbJeweledPickedUp() {
+        return nbJeweledPickedUp;
+    }
+
+    public void setNbJeweledPickedUp(int nbJeweledPickedUp) {
+        this.nbJeweledPickedUp = nbJeweledPickedUp;
+    }
+
     public void moveRobot(Position pos) throws IndexOutOfBoundsException{
         if(pos.getX() > 0 || pos.getX() < this.getMap().getNbLines()){
             if(pos.getY() > 0 || pos.getY() < this.getMap().getNbTilesInLine(pos.getX())){
@@ -66,13 +72,18 @@ public class State {
 
     public boolean compare(State other){
         boolean same = true;
+        if(this.nbJeweledPickedUp == other.getNbJeweledPickedUp()){
+            return true;
+        }
         for(int i = 0;i < this.map.getNbLines(); i++){
             for(int j = 0; j < this.map.getNbTilesInLine(i); j++){
-                if(!(this.map.getTile(i,j).isHasJewel() == other.map.getTile(i,j).isHasJewel() && this.map.getTile(i,j).isHasDirt() == other.map.getTile(i,j).isHasDirt())){
+                if(this.map.getTile(i,j).isHasDirt() != other.map.getTile(i,j).isHasDirt()){
                     same = false;
                 }
             }
         }
         return same;
     }
+
+
 }

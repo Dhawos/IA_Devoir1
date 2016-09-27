@@ -9,9 +9,14 @@ import ca.uqac.IA.Devoir1.robot.State;
  */
 public class PickUpAction extends Action {
     public PickUpAction(State state) {
-        this.afterState = new State(state);
-        this.afterState.getCurrentTile().setHasDirt(false);
-        this.afterState.getCurrentTile().setHasJewel(false);
+        if(state.getCurrentTile().isHasJewel()){
+            this.afterState = new State(state);
+            this.afterState.getCurrentTile().setHasJewel(false);
+            this.afterState.setNbJeweledPickedUp(state.getNbJeweledPickedUp()+1);
+        }else{
+            this.setLegal(false);
+        }
+
     }
 
     @Override

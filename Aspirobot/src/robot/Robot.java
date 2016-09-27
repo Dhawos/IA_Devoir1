@@ -16,7 +16,7 @@ import java.util.Observable;
 public class Robot extends Observable implements Runnable {
     private boolean isAlive;
     private State state;
-    private State goal;
+    private State[] goals;
     private JewelSensor jewelSensor;
     private DirtSensor dirtSensor;
     private LinkedList<Tile> tileQueue;
@@ -26,7 +26,10 @@ public class Robot extends Observable implements Runnable {
         this.isAlive = true;
         this.state = new State();
         this.tileQueue = new LinkedList<Tile>();
-        this.goal = new State();
+        this.goals = new State[1];
+        this.goals[0] = new State();
+        this.goals[0].setNbJeweledPickedUp(this.goals[0].getNbJeweledPickedUp()+1);
+        //this.goals[1] = new State();
     }
 
     public void setEnv(InterfaceEnvironment env){
@@ -49,7 +52,8 @@ public class Robot extends Observable implements Runnable {
     public Action chooseAnAction(){
         LinkedList<Action> possibleActions = getLegalActions();
         for(Action action : possibleActions){
-            if(action.getAfterState().compare(this.goal)){
+            for(State goal : this.goals)
+            if(action.getAfterState().compare(goal)){
                 return action;
             }
         }
@@ -62,6 +66,9 @@ public class Robot extends Observable implements Runnable {
             observeEnvironmentAndUpdateState();
             Action selectedAction  = chooseAnAction();
             selectedAction.doAction(this.env,this);
+            if(selectedAction instanceof PickUpAction){
+                this.goals[0].setNbJeweledPickedUp(this.goals[0].getNbJeweledPickedUp()+1);
+            }
             try{
                 Thread.sleep(10000);
             }catch (InterruptedException ex){
@@ -99,7 +106,9 @@ public class Robot extends Observable implements Runnable {
         SweepAction sweepAction = new SweepAction(this.getState());
         list.add(sweepAction);
         PickUpAction pickUpAction = new PickUpAction(this.getState());
-        list.add(pickUpAction);
+        if(pickUpAction.isLegal()){
+            list.add(pickUpAction);
+        }
         return list;
     }
 
