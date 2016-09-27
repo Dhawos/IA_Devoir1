@@ -69,11 +69,6 @@ public class Robot extends Observable implements Runnable {
             if(selectedAction instanceof PickUpAction){
                 this.goals[0].setNbJeweledPickedUp(this.goals[0].getNbJeweledPickedUp()+1);
             }
-            try{
-                Thread.sleep(10000);
-            }catch (InterruptedException ex){
-
-            }
         }
     }
 

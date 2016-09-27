@@ -12,10 +12,16 @@ public class SweepAction extends Action {
         this.afterState = new State(state);
         this.afterState.getCurrentTile().setHasDirt(false);
         this.afterState.getCurrentTile().setHasJewel(false);
+        this.setLegal(true);
     }
 
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
+        try{
+            Thread.sleep(50000);
+        }catch (InterruptedException ex){
+
+        }
         env.sweep();
         System.out.println(String.format("Aspirobot has swept dirt on tile (%1$d,%2$d)", robot.getState().getCurrentPosition().getX(), robot.getState().getCurrentPosition().getY()));
     }

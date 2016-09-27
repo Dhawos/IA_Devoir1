@@ -13,6 +13,7 @@ public class PickUpAction extends Action {
             this.afterState = new State(state);
             this.afterState.getCurrentTile().setHasJewel(false);
             this.afterState.setNbJeweledPickedUp(state.getNbJeweledPickedUp()+1);
+            this.setLegal(true);
         }else{
             this.setLegal(false);
         }
@@ -21,6 +22,11 @@ public class PickUpAction extends Action {
 
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
+        try{
+            Thread.sleep(50000);
+        }catch (InterruptedException ex){
+
+        }
         env.pickUpJewel();
         System.out.println(String.format("Aspirobot has picked up jewels on tile (%1$d,%2$d)", robot.getState().getCurrentPosition().getX(), robot.getState().getCurrentPosition().getX()));
     }
