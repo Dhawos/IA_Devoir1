@@ -82,6 +82,10 @@ public class Robot extends Observable implements Runnable {
 
     public LinkedList<Action> getLegalActions(){
         LinkedList<Action> list = new LinkedList<>();
+        PickUpAction pickUpAction = new PickUpAction(this.getState());
+        if(pickUpAction.isLegal()){
+            list.add(pickUpAction);
+        }
         MoveUpAction moveUp = new MoveUpAction(this.getState());
         if(moveUp.isLegal()){
             list.add(moveUp);
@@ -100,10 +104,7 @@ public class Robot extends Observable implements Runnable {
         }
         SweepAction sweepAction = new SweepAction(this.getState());
         list.add(sweepAction);
-        PickUpAction pickUpAction = new PickUpAction(this.getState());
-        if(pickUpAction.isLegal()){
-            list.add(pickUpAction);
-        }
+
         return list;
     }
 

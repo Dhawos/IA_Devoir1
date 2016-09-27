@@ -23,11 +23,11 @@ public class PickUpAction extends Action {
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
         try{
-            Thread.sleep(50000);
+            Thread.sleep(5000);
         }catch (InterruptedException ex){
 
         }
         env.pickUpJewel();
-        System.out.println(String.format("Aspirobot has picked up jewels on tile (%1$d,%2$d)", robot.getState().getCurrentPosition().getX(), robot.getState().getCurrentPosition().getX()));
+        System.out.println(String.format("Aspirobot has picked up jewels on tile (%1$d,%2$d)", robot.getState().getCurrentPosition().getX(), robot.getState().getCurrentPosition().getY()));
     }
 }
