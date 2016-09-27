@@ -57,8 +57,4 @@ public class TilePanel extends JPanel implements Observer {
 
         }
     }
-
-    public JLabel getLabel() {
-        return label;
-    }
 }
