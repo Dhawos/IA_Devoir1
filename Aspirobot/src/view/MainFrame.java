@@ -22,30 +22,33 @@ public class MainFrame extends JFrame implements Observer {
     public MainFrame() {
         super(TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(1200, 600);
         setLayout(new BorderLayout(0, 0));
-        JPanel legendPanel = new JPanel(new GridLayout(3, 1, 5, 0));
-        legendPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 250, 40), BorderFactory.createTitledBorder("Legend")));
-        legendPanel.add(new JLabel("Blue color is for Aspirobot"));
-        legendPanel.add(new JLabel("D is for Dust"));
-        legendPanel.add(new JLabel("J is for Jewel"));
+        JPanel legendPanel = new InfoPanel(new GridLayout(5, 1, 5, 0));
+        legendPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 150, 40), BorderFactory.createTitledBorder("Information")));
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(controlButton, BorderLayout.EAST);
-        bottomPanel.setBorder(new EmptyBorder(0,20,20,20));
+        bottomPanel.setBorder(new EmptyBorder(10,20,20,20));
 
-        createBoard();
+        JPanel masterPanel = new JPanel(new GridLayout(1,0));
+
+        createBoard(masterPanel, "Real Board");
+        createBoard(masterPanel, "Aspirobot's Board");
+
         initLogger(bottomPanel);
 
+        add(masterPanel, BorderLayout.CENTER);
         add(legendPanel, BorderLayout.WEST);
         add(bottomPanel, BorderLayout.SOUTH);
         setResizable(false);
         setVisible(true);
 
     }
-    private void createBoard(){
-        JPanel gamePanel = new JPanel(new GridLayout(0, 6));
-        gamePanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+    private void createBoard(JPanel masterPanel, String boardName){
+        JPanel gamePanel = new JPanel(new BorderLayout());
+        JPanel boardPanel = new JPanel(new GridLayout(0, 6));
+        boardPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         for (int i = 0; i < gamePanelSquares.length; i++) {
             for (int j = 0; j < gamePanelSquares[i].length; j++) {
@@ -60,24 +63,30 @@ public class MainFrame extends JFrame implements Observer {
             }
         }
 
-        gamePanel.add(new JLabel(""));
+        boardPanel.add(new JLabel(""));
         for (int i = 0; i < 5; i++) {
-            gamePanel.add(new JLabel("" + i,
+            boardPanel.add(new JLabel("" + i,
                     SwingConstants.CENTER));
         }
         for (int i = 0; i < gamePanelSquares.length; i++) {
             for (int j = 0; j < gamePanelSquares[i].length; j++) {
                 switch (j) {
                     case 0:
-                        gamePanel.add(new JLabel("" + i,
+                        boardPanel.add(new JLabel("" + i,
                                 SwingConstants.CENTER));
                     default:
-                        gamePanel.add(gamePanelSquares[i][j]);
+                        boardPanel.add(gamePanelSquares[i][j]);
                 }
             }
         }
 
-        add(gamePanel, BorderLayout.CENTER);
+        gamePanel.add(boardPanel, BorderLayout.CENTER);
+
+        JLabel label = new JLabel(boardName);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        gamePanel.add(label, BorderLayout.SOUTH);
+
+        masterPanel.add(gamePanel);
 
     }
     private void initLogger(JPanel bottomPanel){
