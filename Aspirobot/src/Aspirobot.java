@@ -22,7 +22,9 @@ public class Aspirobot {
         Aspirobot main = new Aspirobot();
 
         main.environment = new Environment();
-        main.robot = new Robot(new JewelSensor(main.environment),new DirtSensor(main.environment));
+        main.robot = new Robot();
+        main.robot.addSensor(new DirtSensor(main.environment,main.robot));
+        main.robot.addSensor(new JewelSensor(main.environment,main.robot));
         main.robot.setEnv(new InterfaceEnvironment(main.environment,main.robot));
         main.initControllers();
         main.initView();
