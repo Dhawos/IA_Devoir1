@@ -1,10 +1,10 @@
 package ca.uqac.IA.Devoir1.view;
 
 import ca.uqac.IA.Devoir1.environment.Tile;
+import ca.uqac.IA.Devoir1.util.Position;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.text.Position;
 import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
@@ -45,7 +45,16 @@ public class TilePanel extends JPanel implements Observer {
             }
         }
         if(arg instanceof Position){
-            label.setText(label.getText() + " A");
+            Position robotPosition = (Position)arg;
+            String text = label.getText();
+            
+            if(text.contains("A")){
+                label.setText(text.replace("A", ""));
+            }
+            if(robotPosition.getX() == xPos && robotPosition.getY() == yPos){
+                label.setText(text + " A");
+            }
+
         }
     }
 
