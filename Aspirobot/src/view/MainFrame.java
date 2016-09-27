@@ -58,7 +58,7 @@ public class MainFrame extends JFrame implements Observer {
             for (int j = 0; j < gamePanelSquares[i].length; j++) {
                 JPanel panel;
                 if (j < 3 || i == 1) {
-                    panel = new TilePanel(j, i); //inverted to stick with model
+                    panel = new TilePanel(i, j);
                     tileMap.add((TilePanel) panel);
                 } else {
                     panel = new JPanel();
@@ -115,11 +115,5 @@ public class MainFrame extends JFrame implements Observer {
         return controlButton;
     }
 
-    public ArrayList<TilePanel> getRealTileMap() {
-        return realTileMap;
-    }
 
-    public ArrayList<TilePanel> getRobotTileMap() {
-        return robotTileMap;
-    }
 }

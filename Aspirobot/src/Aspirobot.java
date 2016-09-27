@@ -51,7 +51,7 @@ public class Aspirobot {
                 TilePanel robotTilePanel = mainFrame.getRobotTileMap().stream().filter(t -> t.getXPos() == robotTile.getX() && t.getYPos() == robotTile.getY()).findFirst().get();
                 robotTile.addObserver(robotTilePanel);
                 robot.addObserver(robotTilePanel);
-                
+
                 if(i == 0 && j == 0){
                     realTilePanel.setBackground(Color.BLUE);
                     robotTilePanel.setBackground(Color.BLUE);

@@ -24,7 +24,7 @@ public class TilePanel extends JPanel implements Observer {
     }
 
 
-    public TilePanel(int y, int x) {
+    public TilePanel(int x, int y) {
         xPos = x;
         yPos = y;
         add(label);
@@ -51,7 +51,7 @@ public class TilePanel extends JPanel implements Observer {
             if(getBackground() == Color.BLUE){
                 this.setBackground(Color.WHITE);
             }
-            if(robotPosition.getX() == yPos && robotPosition.getY() == xPos){ //inverted to stick with model
+            if(robotPosition.getX() == xPos && robotPosition.getY() == yPos){
                 setBackground(Color.BLUE);
             }
 
