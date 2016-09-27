@@ -54,8 +54,14 @@ public class State {
 
     public Position getCurrentPosition(){return new Position(currentTile.getX(),currentTile.getY());}
 
-    public void moveRobot(Position pos){
-        this.currentTile = this.getMap().getTile(pos);
+    public void moveRobot(Position pos) throws IndexOutOfBoundsException{
+        if(pos.getX() > 0 || pos.getX() < this.getMap().getNbLines()){
+            if(pos.getY() > 0 || pos.getY() < this.getMap().getNbTilesInLine(pos.getX())){
+                this.currentTile = this.getMap().getTile(pos);
+            }
+        }else{
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     public boolean compare(State other){

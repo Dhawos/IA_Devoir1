@@ -34,7 +34,7 @@ public class Tile extends Observable{
         this.hasDirt = hasDirt;
         setChanged();
         notifyObservers();
-        System.out.println("Dirt has been set on tile (" + position.getX() + "," + position.getY()+ ").");
+        //System.out.println("Dirt has been set on tile (" + position.getX() + "," + position.getY()+ ").");
     }
 
     public boolean isHasJewel() {
@@ -45,7 +45,7 @@ public class Tile extends Observable{
         this.hasJewel = hasJewel;
         setChanged();
         notifyObservers();
-        System.out.println("Jewel has been set on tile (" + position.getX() + "," + position.getY() + ").");
+        //System.out.println("Jewel has been set on tile (" + position.getX() + "," + position.getY() + ").");
 
     }
 }

@@ -21,7 +21,7 @@ public abstract class Action {
     }
 
     public void setLegal(boolean legal){
-        this.legal = false;
+        this.legal = legal;
     }
 }
 

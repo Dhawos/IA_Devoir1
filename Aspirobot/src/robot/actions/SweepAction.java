@@ -9,7 +9,7 @@ import ca.uqac.IA.Devoir1.robot.State;
  */
 public class SweepAction extends Action {
     public SweepAction(State state) {
-        this.afterState = state;
+        this.afterState = new State(state);
         this.afterState.getCurrentTile().setHasDirt(false);
         this.afterState.getCurrentTile().setHasJewel(false);
     }

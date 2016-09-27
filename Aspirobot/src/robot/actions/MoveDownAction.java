@@ -14,9 +14,10 @@ public class MoveDownAction extends Action {
         int x = state.getCurrentTile().getX();
         int destY = state.getCurrentTile().getY()+1;
         try{
-            this.afterState = state;
+            this.afterState = new State(state);
             this.afterState.moveRobot(new Position(x,destY));
             this.afterState.setElectricityUsed(this.afterState.getElectricityUsed() + 1);
+            this.setLegal(true);
         }catch(IndexOutOfBoundsException ex){
             this.setLegal(false);
         }
