@@ -16,6 +16,7 @@ public class MoveUpAction extends Action{
         try{
             this.afterState = new State(state);
             this.afterState.moveRobot(new Position(destX,y));
+            this.afterState.setElectricityUsed(this.afterState.getElectricityUsed() + 1);
             this.setLegal(true);
         }catch(IndexOutOfBoundsException ex){
             this.setLegal(false);
@@ -30,7 +31,7 @@ public class MoveUpAction extends Action{
 
         }
         Tile currentTile = robot.getState().getCurrentTile();
-        robot.move(new Position(currentTile.getX(), currentTile.getY() - 1));
+        robot.move(new Position(currentTile.getX()-1, currentTile.getY()));
         System.out.println(String.format("Aspirobot has moved to tile (%1$d,%2$d)", robot.getState().getCurrentTile().getX(), robot.getState().getCurrentTile().getY()));
     }
 }

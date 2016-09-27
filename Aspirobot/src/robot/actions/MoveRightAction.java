@@ -30,7 +30,7 @@ public class MoveRightAction extends Action{
 
         }
         Tile currentTile = robot.getState().getCurrentTile();
-        robot.move(new Position(currentTile.getX() + 1, currentTile.getY()));
+        robot.move(new Position(currentTile.getX(), currentTile.getY()+1));
         System.out.println(String.format("Aspirobot has moved to tile (%1$d,%2$d)", robot.getState().getCurrentTile().getX(), robot.getState().getCurrentTile().getY()));
     }
 }

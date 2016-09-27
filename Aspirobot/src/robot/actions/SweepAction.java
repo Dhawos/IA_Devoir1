@@ -12,8 +12,7 @@ public class SweepAction extends Action {
         this.afterState = new State(state);
         this.afterState.getCurrentTile().setHasDirt(false);
         this.afterState.getCurrentTile().setHasJewel(false);
-        this.setLegal(true);
-    }
+}
 
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
