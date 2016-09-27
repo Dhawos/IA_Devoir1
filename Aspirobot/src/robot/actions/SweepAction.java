@@ -17,6 +17,6 @@ public class SweepAction extends Action {
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
         env.sweep();
-        System.out.println("Aspirbot has swept dirt");
+        System.out.println(String.format("Aspirobot has swept dirt on tile (%1$d,%2$d)", robot.getState().getCurrentPosition().getX(), robot.getState().getCurrentPosition().getY()));
     }
 }

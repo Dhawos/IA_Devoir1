@@ -25,6 +25,6 @@ public class MoveRightAction extends Action{
     public void doAction(InterfaceEnvironment env, Robot robot) {
         Tile currentTile = robot.getState().getCurrentTile();
         robot.move(new Position(currentTile.getX() + 1, currentTile.getY()));
-        System.out.println(String.format("Aspirobot has moved to tile ({1},{2])", robot.getState().getCurrentTile().getX(), robot.getState().getCurrentTile().getY()));
+        System.out.println(String.format("Aspirobot has moved to tile (%1$d,%2$d)", robot.getState().getCurrentTile().getX(), robot.getState().getCurrentTile().getY()));
     }
 }

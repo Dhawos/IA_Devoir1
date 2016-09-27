@@ -43,6 +43,9 @@ public class Aspirobot {
                 TilePanel tilePanel = mainFrame.getTileMap().stream().filter(t -> t.getXPos() == tile.getX() && t.getYPos() == tile.getY()).findFirst().get();
                 tile.addObserver(tilePanel);
                 robot.addObserver(tilePanel);
+                if(i == 0 && j == 0){
+                    tilePanel.getLabel().setText("A");
+                }
             }
         }
     }
