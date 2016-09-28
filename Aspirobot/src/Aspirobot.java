@@ -39,6 +39,8 @@ public class Aspirobot {
     public void initView() {
         MainFrame mainFrame = new MainFrame();
         mainFrame.getControlButton().addMouseListener(controller);
+        robot.getEnv().addObserver(mainFrame.getInfoPanel());
+        robot.addObserver(mainFrame.getInfoPanel());
 
         for (int i=0;i<environment.getMap().getNbLines();i++) {
             for (int j=0;j<environment.getMap().getNbTilesInLine(i);j++) {

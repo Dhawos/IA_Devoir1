@@ -13,20 +13,21 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class MainFrame extends JFrame implements Observer {
+
     static final String TITLE = "ASPIROBOT T-0.1";
     private JButton controlButton = new JButton("Run Aspirobot");
     private JPanel[][] gamePanelSquares = new JPanel[3][5];
     private ArrayList<TilePanel> realTileMap;
     private ArrayList<TilePanel> robotTileMap;
-
+    private InfoPanel infoPanel;
 
     public MainFrame() {
         super(TITLE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 600);
         setLayout(new BorderLayout(0, 0));
-        JPanel legendPanel = new InfoPanel(new GridLayout(6, 1, 5, 0));
-        legendPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 150, 40), BorderFactory.createTitledBorder("Information")));
+        infoPanel = new InfoPanel(new GridLayout(6, 1, 5, 0));
+        infoPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 150, 40), BorderFactory.createTitledBorder("Information")));
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
         bottomPanel.add(controlButton, BorderLayout.EAST);
@@ -40,7 +41,7 @@ public class MainFrame extends JFrame implements Observer {
         initLogger(bottomPanel);
 
         add(centerPanel, BorderLayout.CENTER);
-        add(legendPanel, BorderLayout.WEST);
+        add(infoPanel, BorderLayout.WEST);
         add(bottomPanel, BorderLayout.SOUTH);
         setResizable(false);
         setVisible(true);
@@ -121,5 +122,9 @@ public class MainFrame extends JFrame implements Observer {
 
     public ArrayList<TilePanel> getRobotTileMap() {
         return robotTileMap;
+    }
+
+    public InfoPanel getInfoPanel() {
+        return infoPanel;
     }
 }

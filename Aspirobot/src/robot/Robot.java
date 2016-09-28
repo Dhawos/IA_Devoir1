@@ -115,4 +115,7 @@ public class Robot extends Observable implements Runnable {
         notifyObservers(position);
     }
 
+    public InterfaceEnvironment getEnv() {
+        return env;
+    }
 }
