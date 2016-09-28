@@ -58,11 +58,18 @@ public class State {
         this.electricityUsed = electricityUsed;
     }
 
-    public Tile getCurrentTile() {
+    public Tile getCurrentTile() throws NullPointerException {
         return currentTile;
     }
 
-    public Position getCurrentPosition(){return new Position(currentTile.getX(),currentTile.getY());}
+    public Position getCurrentPosition(){
+        if(this.currentTile != null){
+            return new Position(currentTile.getX(),currentTile.getY());
+        }
+        else{
+            return null;
+        }
+    }
 
     public int getNbJeweledPickedUp() {
         return nbJeweledPickedUp;
@@ -73,26 +80,32 @@ public class State {
     }
 
     public void moveRobot(Position pos) throws IndexOutOfBoundsException{
-        if(pos.getX() > 0 || pos.getX() < this.getMap().getNbLines()){
-            if(pos.getY() > 0 || pos.getY() < this.getMap().getNbTilesInLine(pos.getX())){
-                this.currentTile = this.getMap().getTile(pos);
-            }
+        if(pos == null){
+            this.currentTile = null;
         }else{
-            throw new IndexOutOfBoundsException();
+            if(pos.getX() > 0 || pos.getX() < this.getMap().getNbLines()){
+                if(pos.getY() > 0 || pos.getY() < this.getMap().getNbTilesInLine(pos.getX())){
+                    this.currentTile = this.getMap().getTile(pos);
+                }
+            }else{
+                throw new IndexOutOfBoundsException();
+            }
         }
     }
 
     public int rate(State other){
-        int utility = 0;
+        int utility = 10;
         if(this.nbJeweledPickedUp == other.getNbJeweledPickedUp()){
-            utility = 100;
+            return 50;
         }
         if(this.nbDirtSwept == other.getNbDirtSwept()){
-            utility = 10;
+            return 49;
         }
-
+        if(other.getCurrentTile() != null){
+            utility -= (Math.abs(other.getCurrentPosition().getX()-this.getCurrentPosition().getX()) + Math.abs(other.getCurrentPosition().getY()-this.getCurrentPosition().getY()));
+        }else{
+            utility -= 10;
+        }
         return utility;
-    }
-
-
+        }
 }

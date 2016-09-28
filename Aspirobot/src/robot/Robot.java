@@ -7,7 +7,6 @@ import ca.uqac.IA.Devoir1.robot.sensors.DirtSensor;
 import ca.uqac.IA.Devoir1.robot.sensors.JewelSensor;
 import ca.uqac.IA.Devoir1.util.Position;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Random;
@@ -24,21 +23,36 @@ public class Robot extends Observable implements Runnable {
     private LinkedList<Tile> tileQueue;
     private InterfaceEnvironment env;
     private Random rng;
+    private int goalsNumber = 3;
 
     public Robot() {
         this.isAlive = true;
         this.state = new State();
         this.tileQueue = new LinkedList<Tile>();
-        this.goals = new State[2];
+        this.goals = new State[this.goalsNumber];
         //Defining first goal - Incrementing nb of Jewels picked up
         this.goals[0] = new State();
         this.goals[0].setNbJeweledPickedUp(this.goals[0].getNbJeweledPickedUp()+1);
         this.goals[0].setNbDirtSwept(-1);
+        this.goals[0].moveRobot(null);
         //Defining second goal - Incrementing nb of dirt swept
         this.goals[1] = new State();
         this.goals[1].setNbJeweledPickedUp(-1);
         this.goals[1].setNbDirtSwept(this.goals[1].getNbDirtSwept()+1);
-
+        this.goals[1].moveRobot(null);
+        //Defining third goal - Visiting least visited tile
+        //We must first initialize the visited Tiles queues
+        this.tileQueue = new LinkedList<>();
+        for(int i = 0; i < this.getState().getMap().getNbLines() ; i++){
+            for(int j = 0; j < this.getState().getMap().getNbTilesInLine(i); j++){
+                tileQueue.add(this.getState().getMap().getTile(i,j));
+            }
+        }
+        this.goals[2] = new State();
+        this.goals[2].setNbJeweledPickedUp(-1);
+        this.goals[2].setNbDirtSwept(-1);
+        this.tileQueue.add(tileQueue.removeFirst());
+        this.goals[2].moveRobot(tileQueue.removeFirst().getPosition());
 
         long seed = System.nanoTime();
         rng = new Random(seed);
@@ -64,7 +78,7 @@ public class Robot extends Observable implements Runnable {
     public Action chooseAnAction(){
         LinkedList<Action> possibleActions = getLegalActions();
         Action bestAction = possibleActions.peekFirst();
-        int maxUtility = -1;
+        int maxUtility = 0;
         int currentScore;
         for(State goal : this.goals){
             for(Action action : possibleActions){
@@ -127,12 +141,16 @@ public class Robot extends Observable implements Runnable {
         if(sweepAction.isLegal()){
             list.add(sweepAction);
         }
-        Collections.shuffle(list,this.rng);
+        //Collections.shuffle(list,this.rng);
         return list;
     }
 
     public void move(Position position){
         state.moveRobot(position);
+        if(state.getCurrentPosition().equals(this.goals[2].getCurrentPosition())){
+            this.tileQueue.add(state.getCurrentTile());
+            this.goals[2].moveRobot(tileQueue.removeFirst().getPosition());
+        }
         state.setElectricityUsed(state.getElectricityUsed() + 1);
         setChanged();
         notifyObservers(position);
