@@ -147,8 +147,9 @@ public class Robot extends Observable implements Runnable {
 
     public void move(Position position){
         state.moveRobot(position);
+        this.tileQueue.remove(state.getCurrentTile());
+        this.tileQueue.add(state.getCurrentTile());
         if(state.getCurrentPosition().equals(this.goals[2].getCurrentPosition())){
-            this.tileQueue.add(state.getCurrentTile());
             this.goals[2].moveRobot(tileQueue.removeFirst().getPosition());
         }
         state.setElectricityUsed(state.getElectricityUsed() + 1);
