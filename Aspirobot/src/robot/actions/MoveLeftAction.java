@@ -25,7 +25,7 @@ public class MoveLeftAction extends Action {
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
         try{
-            Thread.sleep(50000);
+            Thread.sleep(5000);
         }catch (InterruptedException ex){
 
         }

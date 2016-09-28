@@ -16,15 +16,23 @@ public class InterfaceEnvironment {
 
     public void sweep(){
     Tile tile = this.env.getMap().getTile(this.robot.getState().getCurrentPosition());
-        tile.setHasDirt(false);
+        if(tile.isHasDirt()){
+            this.env.incrementDirtSwept();
+            tile.setHasDirt(false);
+        }
         if(tile.isHasJewel()){
-        this.env.incrementNbJewelsSwept();
-    }
-        tile.setHasJewel(false);
+            this.env.incrementNbJewelsSwept();
+            tile.setHasJewel(false);
+        }
+
 }
 
     public void pickUpJewel(){
         Tile tile = this.env.getMap().getTile(this.robot.getState().getCurrentPosition());
-        tile.setHasJewel(false);
+        if(tile.isHasJewel()){
+            this.env.incrementNbJewelsPickedUp();
+            this.robot.getState().setNbJeweledPickedUp(this.robot.getState().getNbJeweledPickedUp()+1);
+            tile.setHasJewel(false);
+        }
     }
 }

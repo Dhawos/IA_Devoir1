@@ -12,15 +12,17 @@ public class Environment extends TimerTask {
     private boolean isGameRunning;
     private Random rng;
     private int jewelsSwept;
+    private int jewelsPickedUp;
+    private int dirtSwept;
 
     private void generateDirt(){
-        int x = rng.nextInt(map.getNbLines()-1);
-        int y = rng.nextInt(map.getNbTilesInLine(x)-1);
+        int x = rng.nextInt(map.getNbLines());
+        int y = rng.nextInt(map.getNbTilesInLine(x));
         map.getTile(x,y).setHasDirt(true);
     }
     private void generateJewel(){
-        int x = rng.nextInt(map.getNbLines()-1);
-        int y = rng.nextInt(map.getNbTilesInLine(x)-1);
+        int x = rng.nextInt(map.getNbLines());
+        int y = rng.nextInt(map.getNbTilesInLine(x));
         map.getTile(x,y).setHasJewel(true);
     }
     private boolean shouldThereBeANewDirtySpace(){
@@ -36,6 +38,8 @@ public class Environment extends TimerTask {
         map = new Map();
         electricityUsed = 0;
         jewelsSwept = 0;
+        jewelsPickedUp = 0;
+        dirtSwept = 0;
         isGameRunning = false;
         rng = new Random();
     }
@@ -64,5 +68,13 @@ public class Environment extends TimerTask {
 
     public void incrementNbJewelsSwept(){
         this.jewelsSwept++;
+    }
+
+    public void incrementNbJewelsPickedUp(){
+        this.jewelsPickedUp++;
+    }
+
+    public void incrementDirtSwept(){
+        this.dirtSwept++;
     }
 }
