@@ -25,7 +25,7 @@ public class MoveRightAction extends Action{
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
         try{
-            Thread.sleep(SLEEP_TIME);
+            Thread.sleep(this.RequiredTime);
         }catch (InterruptedException ex){
 
         }

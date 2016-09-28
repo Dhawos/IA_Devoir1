@@ -42,14 +42,14 @@ public class RunController extends MouseAdapter {
                     clip = (Clip) AudioSystem.getLine(info);
                     clip.open(stream);
                     clip.start();
-                    Action.SLEEP_TIME = 200;
+                    Action.RequiredTime = 200;
                     button.setText("STOP GO FAST");
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
             } else if (button.getText().equals("STOP GO FAST")) {
                 clip.stop();
-                Action.SLEEP_TIME = 5000;
+                Action.RequiredTime = 2000;
                 button.setText("GOTTA GO FAST");
             }
         }
