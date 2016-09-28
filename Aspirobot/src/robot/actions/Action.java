@@ -8,6 +8,7 @@ import ca.uqac.IA.Devoir1.robot.State;
  * Created by dhawo on 23/09/2016.
  */
 public abstract class Action {
+    public static int SLEEP_TIME = 5000;
     protected State afterState;
     private boolean legal;
     public abstract void doAction(InterfaceEnvironment env, Robot robot);

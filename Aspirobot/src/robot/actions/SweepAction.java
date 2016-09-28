@@ -22,7 +22,7 @@ public class SweepAction extends Action {
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
         try{
-            Thread.sleep(5000);
+            Thread.sleep(SLEEP_TIME);
         }catch (InterruptedException ex){
 
         }

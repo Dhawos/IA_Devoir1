@@ -11,10 +11,12 @@ public class InfoPanel extends JPanel implements Observer {
 
     private JLabel jewelsPickedUp;
     private JLabel jewelsSwept;
+    private JLabel dirtSwept;
     private JLabel eletricitySpent;
 
     private int nbJewelsPickedUp = 0;
     private int nbJewelsSwept = 0;
+    private int nbDirtSwept = 0;
     private int nbElectricitySpent = 0;
 
     public InfoPanel(LayoutManager lm) {
@@ -26,6 +28,8 @@ public class InfoPanel extends JPanel implements Observer {
         add(jewelsPickedUp);
         jewelsSwept = new JLabel("Jewels swept: " + String.valueOf(nbJewelsSwept));
         add(jewelsSwept);
+        dirtSwept = new JLabel("Dirt swept: " + String.valueOf(nbDirtSwept));
+        add(dirtSwept);
         eletricitySpent = new JLabel("Electricity spent: " + String.valueOf(nbElectricitySpent));
         add(eletricitySpent);
     }
@@ -41,6 +45,8 @@ public class InfoPanel extends JPanel implements Observer {
                     eletricitySpent.setText("Electricity spent: " + String.valueOf(nbElectricitySpent));
                     break;
                 case "SweptDirt":
+                    nbDirtSwept++;
+                    dirtSwept.setText("Dirt swept: " + String.valueOf(nbDirtSwept));
                     nbElectricitySpent++;
                     eletricitySpent.setText("Electricity spent: " + String.valueOf(nbElectricitySpent));
                     break;

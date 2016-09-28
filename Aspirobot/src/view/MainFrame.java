@@ -15,7 +15,7 @@ import java.util.Observer;
 public class MainFrame extends JFrame implements Observer {
 
     static final String TITLE = "ASPIROBOT T-0.1";
-    private JButton controlButton = new JButton("Run Aspirobot");
+    private JButton controlButton = new JButton("GOTTA GO FAST");
     private JPanel[][] gamePanelSquares = new JPanel[3][5];
     private ArrayList<TilePanel> realTileMap;
     private ArrayList<TilePanel> robotTileMap;
@@ -26,7 +26,7 @@ public class MainFrame extends JFrame implements Observer {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 600);
         setLayout(new BorderLayout(0, 0));
-        infoPanel = new InfoPanel(new GridLayout(6, 1, 5, 0));
+        infoPanel = new InfoPanel(new GridLayout(7, 1, 5, 0));
         infoPanel.setBorder(new CompoundBorder(new EmptyBorder(100, 20, 150, 40), BorderFactory.createTitledBorder("Information")));
 
         JPanel bottomPanel = new JPanel(new BorderLayout());
