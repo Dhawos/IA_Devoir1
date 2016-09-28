@@ -12,12 +12,14 @@ public class State {
     private int electricityUsed;
     private Tile currentTile;
     private int nbJeweledPickedUp;
+    private int nbDirtSwept;
 
     public State() {
         this.map = new Map();
         this.electricityUsed = 0;
         this.currentTile = map.getTile(0,0);
         this.nbJeweledPickedUp = 0;
+        this.nbDirtSwept = 0;
     }
 
     public State(Map map) {
@@ -25,6 +27,7 @@ public class State {
         this.electricityUsed = 0;
         this.currentTile = map.getTile(0,0);
         this.nbJeweledPickedUp = 0;
+        this.nbDirtSwept = 0;
     }
 
     public State(State other) {
@@ -32,6 +35,15 @@ public class State {
         this.electricityUsed = other.getElectricityUsed();
         this.currentTile = this.map.getTile(other.getCurrentPosition());
         this.nbJeweledPickedUp = other.getNbJeweledPickedUp();
+        this.nbDirtSwept = other.getNbDirtSwept();
+    }
+
+    public int getNbDirtSwept() {
+        return nbDirtSwept;
+    }
+
+    public void setNbDirtSwept(int nbDirtSwept) {
+        this.nbDirtSwept = nbDirtSwept;
     }
 
     public Map getMap() {
@@ -73,28 +85,10 @@ public class State {
     public int rate(State other){
         int utility = 0;
         if(this.nbJeweledPickedUp == other.getNbJeweledPickedUp()){
-            return 2;
+            utility = 100;
         }
-        int minX = getCurrentPosition().getX()-1;
-        int maxX = getCurrentPosition().getX()+1;
-        int minY = getCurrentPosition().getY()-1;
-        int maxY = getCurrentPosition().getY()+1;
-        boolean hasLeftDirtBehind = false;
-        for(int i = minX; i <= maxX ; i++){ //The bot should not leave dirt in its surroundings
-            for(int j = minY; j<=maxY ; j++){
-                try{
-                    if(this.getMap().getTile(i,j).isHasDirt() != other.getMap().getTile(i,j).isHasDirt()){
-                        hasLeftDirtBehind = true;
-                    }
-                }catch(IndexOutOfBoundsException ex){
-
-                }
-            }
-        }
-        if(hasLeftDirtBehind){
-            utility = 0;
-        }else{
-            utility = 1;
+        if(this.nbDirtSwept == other.getNbDirtSwept()){
+            utility = 10;
         }
 
         return utility;

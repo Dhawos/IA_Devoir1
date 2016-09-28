@@ -30,10 +30,16 @@ public class Robot extends Observable implements Runnable {
         this.state = new State();
         this.tileQueue = new LinkedList<Tile>();
         this.goals = new State[2];
+        //Defining first goal - Incrementing nb of Jewels picked up
         this.goals[0] = new State();
         this.goals[0].setNbJeweledPickedUp(this.goals[0].getNbJeweledPickedUp()+1);
+        this.goals[0].setNbDirtSwept(-1);
+        //Defining second goal - Incrementing nb of dirt swept
         this.goals[1] = new State();
         this.goals[1].setNbJeweledPickedUp(-1);
+        this.goals[1].setNbDirtSwept(this.goals[1].getNbDirtSwept()+1);
+
+
         long seed = System.nanoTime();
         rng = new Random(seed);
     }
@@ -80,6 +86,9 @@ public class Robot extends Observable implements Runnable {
             selectedAction.doAction(this.env,this);
             if(selectedAction instanceof PickUpAction){
                 this.goals[0].setNbJeweledPickedUp(this.goals[0].getNbJeweledPickedUp()+1);
+            }
+            if(selectedAction instanceof SweepAction){
+                this.goals[1].setNbDirtSwept(this.goals[1].getNbDirtSwept()+1);
             }
         }
     }

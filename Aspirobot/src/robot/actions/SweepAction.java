@@ -13,6 +13,7 @@ public class SweepAction extends Action {
             this.afterState = new State(state);
             this.afterState.getCurrentTile().setHasDirt(false);
             this.afterState.getCurrentTile().setHasJewel(false);
+            this.afterState.setNbDirtSwept(state.getNbDirtSwept()+1);
             this.setLegal(true);
         }else{
             this.setLegal(false);
@@ -22,7 +23,7 @@ public class SweepAction extends Action {
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
         try{
-            Thread.sleep(5000);
+            Thread.sleep(this.RequiredTime);
         }catch (InterruptedException ex){
 
         }

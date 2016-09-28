@@ -9,6 +9,7 @@ import ca.uqac.IA.Devoir1.robot.State;
  */
 public abstract class Action {
     protected State afterState;
+    protected int RequiredTime = 2000;
     private boolean legal;
     public abstract void doAction(InterfaceEnvironment env, Robot robot);
 

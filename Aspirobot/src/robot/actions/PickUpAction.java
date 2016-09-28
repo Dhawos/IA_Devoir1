@@ -23,7 +23,7 @@ public class PickUpAction extends Action {
     @Override
     public void doAction(InterfaceEnvironment env, Robot robot) {
         try{
-            Thread.sleep(5000);
+            Thread.sleep(this.RequiredTime);
         }catch (InterruptedException ex){
 
         }

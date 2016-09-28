@@ -20,6 +20,7 @@ public class InterfaceEnvironment extends Observable {
         Tile tile = this.env.getMap().getTile(this.robot.getState().getCurrentPosition());
         if (tile.isHasDirt()) {
             this.env.incrementDirtSwept();
+            this.robot.getState().setNbDirtSwept(this.robot.getState().getNbDirtSwept()+1);
             tile.setHasDirt(false);
             setChanged();
             notifyObservers("SweptDirt");
