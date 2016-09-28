@@ -7,8 +7,10 @@ import ca.uqac.IA.Devoir1.robot.sensors.DirtSensor;
 import ca.uqac.IA.Devoir1.robot.sensors.JewelSensor;
 import ca.uqac.IA.Devoir1.util.Position;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Observable;
+import java.util.Random;
 
 /**
  * Created by dhawo on 23/09/2016.
@@ -21,15 +23,19 @@ public class Robot extends Observable implements Runnable {
     private DirtSensor dirtSensor;
     private LinkedList<Tile> tileQueue;
     private InterfaceEnvironment env;
+    private Random rng;
 
     public Robot() {
         this.isAlive = true;
         this.state = new State();
         this.tileQueue = new LinkedList<Tile>();
-        this.goals = new State[1];
+        this.goals = new State[2];
         this.goals[0] = new State();
         this.goals[0].setNbJeweledPickedUp(this.goals[0].getNbJeweledPickedUp()+1);
-        //this.goals[1] = new State();
+        this.goals[1] = new State();
+        this.goals[1].setNbJeweledPickedUp(-1);
+        long seed = System.nanoTime();
+        rng = new Random(seed);
     }
 
     public void setEnv(InterfaceEnvironment env){
@@ -51,13 +57,19 @@ public class Robot extends Observable implements Runnable {
 
     public Action chooseAnAction(){
         LinkedList<Action> possibleActions = getLegalActions();
-        for(Action action : possibleActions){
-            for(State goal : this.goals)
-            if(action.getAfterState().compare(goal)){
-                return action;
+        Action bestAction = possibleActions.peekFirst();
+        int maxUtility = -1;
+        int currentScore;
+        for(State goal : this.goals){
+            for(Action action : possibleActions){
+                currentScore = action.getAfterState().rate(goal);
+                if(currentScore > maxUtility){
+                    bestAction = action;
+                    maxUtility = currentScore;
+                }
             }
         }
-        return possibleActions.peek();
+        return bestAction;
     }
 
     @Override
@@ -103,8 +115,10 @@ public class Robot extends Observable implements Runnable {
             list.add(moveRight);
         }
         SweepAction sweepAction = new SweepAction(this.getState());
-        list.add(sweepAction);
-
+        if(sweepAction.isLegal()){
+            list.add(sweepAction);
+        }
+        Collections.shuffle(list,this.rng);
         return list;
     }
 

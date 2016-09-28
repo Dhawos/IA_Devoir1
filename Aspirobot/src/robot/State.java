@@ -70,19 +70,34 @@ public class State {
         }
     }
 
-    public boolean compare(State other){
-        boolean same = true;
+    public int rate(State other){
+        int utility = 0;
         if(this.nbJeweledPickedUp == other.getNbJeweledPickedUp()){
-            return true;
+            return 2;
         }
-        for(int i = 0;i < this.map.getNbLines(); i++){
-            for(int j = 0; j < this.map.getNbTilesInLine(i); j++){
-                if(this.map.getTile(i,j).isHasDirt() != other.map.getTile(i,j).isHasDirt()){
-                    same = false;
+        int minX = getCurrentPosition().getX()-1;
+        int maxX = getCurrentPosition().getX()+1;
+        int minY = getCurrentPosition().getY()-1;
+        int maxY = getCurrentPosition().getY()+1;
+        boolean hasLeftDirtBehind = false;
+        for(int i = minX; i <= maxX ; i++){ //The bot should not leave dirt in its surroundings
+            for(int j = minY; j<=maxY ; j++){
+                try{
+                    if(this.getMap().getTile(i,j).isHasDirt() != other.getMap().getTile(i,j).isHasDirt()){
+                        hasLeftDirtBehind = true;
+                    }
+                }catch(IndexOutOfBoundsException ex){
+
                 }
             }
         }
-        return same;
+        if(hasLeftDirtBehind){
+            utility = 0;
+        }else{
+            utility = 1;
+        }
+
+        return utility;
     }
 
 

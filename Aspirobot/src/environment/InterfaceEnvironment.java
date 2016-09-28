@@ -18,23 +18,29 @@ public class InterfaceEnvironment extends Observable {
 
     public void sweep() {
         Tile tile = this.env.getMap().getTile(this.robot.getState().getCurrentPosition());
-        tile.setHasDirt(false);
-        String message;
+        if (tile.isHasDirt()) {
+            this.env.incrementDirtSwept();
+            tile.setHasDirt(false);
+            setChanged();
+            notifyObservers("SweptDirt");
+        }
         if (tile.isHasJewel()) {
             this.env.incrementNbJewelsSwept();
-            message = "SweptJewel";
-        } else {
-            message = "SweptDirt";
+            setChanged();
+            notifyObservers("SweptJewels");
         }
-        setChanged();
-        notifyObservers(message);
-        tile.setHasJewel(false);
+
     }
 
     public void pickUpJewel() {
         Tile tile = this.env.getMap().getTile(this.robot.getState().getCurrentPosition());
-        tile.setHasJewel(false);
-        setChanged();
-        notifyObservers("PickedUp");
+        if (tile.isHasJewel()) {
+            this.env.incrementNbJewelsPickedUp();
+            this.robot.getState().setNbJeweledPickedUp(this.robot.getState().getNbJeweledPickedUp() + 1);
+            tile.setHasJewel(false);
+            setChanged();
+            notifyObservers("PickedUp");
+
+        }
     }
 }
