@@ -43,6 +43,7 @@ public class RunController extends MouseAdapter {
                     clip.open(stream);
                     clip.start();
                     Action.RequiredTime = 200;
+                    Environment.DEFAULT_TICKRATE = 60;
                     button.setText("STOP GO FAST");
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -50,6 +51,7 @@ public class RunController extends MouseAdapter {
             } else if (button.getText().equals("STOP GO FAST")) {
                 clip.stop();
                 Action.RequiredTime = 2000;
+                Environment.DEFAULT_TICKRATE = 20;
                 button.setText("GOTTA GO FAST");
             }
         }
