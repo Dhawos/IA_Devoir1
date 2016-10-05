@@ -1,11 +1,8 @@
 package ca.uqac.IA.Devoir1.controllers;
 
 import ca.uqac.IA.Devoir1.environment.Environment;
-import ca.uqac.IA.Devoir1.robot.actions.*;
 import ca.uqac.IA.Devoir1.robot.actions.Action;
-import javafx.scene.media.MediaPlayer;
 
-import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -14,7 +11,8 @@ import javax.sound.sampled.DataLine;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 
 public class RunController extends MouseAdapter {
     private Environment environment;
@@ -31,16 +29,13 @@ public class RunController extends MouseAdapter {
             if (button.getText().equals("GOTTA GO FAST")) {
 
                 try {
-                    File yourFile = new File(getClass().getClassLoader().getResource("gottagofast.wav").getPath());
-                    AudioInputStream stream;
-                    AudioFormat format;
-                    DataLine.Info info;
-
-                    stream = AudioSystem.getAudioInputStream(yourFile);
-                    format = stream.getFormat();
-                    info = new DataLine.Info(Clip.class, format);
+                    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("gottagofast.wav");
+                    InputStream bufferedIn = new BufferedInputStream(inputStream);
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+                    AudioFormat format = audioStream.getFormat();
+                    DataLine.Info info = new DataLine.Info(Clip.class, format);
                     clip = (Clip) AudioSystem.getLine(info);
-                    clip.open(stream);
+                    clip.open(audioStream);
                     clip.start();
                     Action.RequiredTime = 200;
                     Environment.DEFAULT_TICKRATE = 60;
